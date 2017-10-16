@@ -1,6 +1,6 @@
 # Content CLI
 
-Command Line Interface (CLI) for the Content Management API (CMA) of  [https://github.com/varvet/content/](https://github.com/varvet/content/). Use to manage spaces and schemas for an organization.
+Command Line Interface (CLI) for the Content Management API (CMA) of  [https://github.com/varvet/content/](https://github.com/varvet/content/). Use it to manage spaces and schemas for an organization.
 
 Install with `yarn`:
 
