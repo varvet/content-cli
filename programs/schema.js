@@ -16,4 +16,11 @@ module.exports = (program) => {
         });
       });
     });
+
+  program
+    .command('schema:update <space> <schema>')
+    .description('Update schema')
+    .action(() => {
+      console.log('Not yet implemented');
+    });
 }

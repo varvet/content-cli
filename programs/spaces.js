@@ -21,4 +21,25 @@ module.exports = (program) => {
         });
       });
     });
+
+  program
+    .command('spaces:create')
+    .description('Create a space')
+    .action(() => {
+      console.log('Not yet implemented');
+    });
+
+  program
+    .command('spaces:rename <space>')
+    .description('Rename a space')
+    .action(() => {
+      console.log('Not yet implemented');
+    });
+
+  program
+    .command('spaces:destroy <space>')
+    .description('Destroy a space')
+    .action(() => {
+      console.log('Not yet implemented');
+    });
 }
