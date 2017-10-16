@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-module.exports.fetchSpaces = (token) => {
+module.exports.getSpaces = (token) => {
   return fetch('http://localhost:3000/cma/spaces', {
     headers: {
       'Accept': 'application/vnd.api+json',

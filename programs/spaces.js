@@ -1,7 +1,7 @@
 const columnify = require('columnify');
 const inquirer = require('inquirer');
 const { login } = require('../helpers');
-const { fetchSpaces, createSpace } = require('../fetches/spaces');
+const { getSpaces, createSpace } = require('../fetches/spaces');
 
 module.exports = (program) => {
   program
@@ -9,8 +9,8 @@ module.exports = (program) => {
     .description('List spaces')
     .action(() => {
       login().then(token => {
-        fetchSpaces(token).then(spaces => {
-          const data = spaces.data.map(space => {
+        getSpaces(token).then(response => {
+          const data = response.data.map(space => {
             return {
               id: space.id,
               title: space.attributes.title,

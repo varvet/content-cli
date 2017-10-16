@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-module.exports.fetchToken = (email, password) => {
+module.exports.getToken = (email, password) => {
   return fetch('http://localhost:3000/tokens', {
     method: 'POST',
     headers: {
