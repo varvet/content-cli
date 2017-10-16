@@ -6,7 +6,7 @@ const { fetchSpaces, createSpace } = require('../fetches/spaces');
 module.exports = (program) => {
   program
     .command('spaces')
-    .description('List your spaces')
+    .description('List spaces')
     .action(() => {
       login().then(token => {
         fetchSpaces(token).then(spaces => {
@@ -18,21 +18,6 @@ module.exports = (program) => {
             }
           });
           console.log(columnify(data));
-        });
-      });
-    });
-
-  program
-    .command('spaces:create <title>')
-    .description('Creates a new space')
-    .action(title => {
-      login().then(token => {
-        createSpace(token, title).then(response => {
-          if (response.data) {
-            console.log('Space created');
-          } else {
-            console.error('Something went wrong'); process.exit(1);
-          }
         });
       });
     });
