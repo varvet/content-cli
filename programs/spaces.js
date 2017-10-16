@@ -19,7 +19,7 @@ module.exports = (program) => {
           });
           console.log(columnify(data));
         });
-      });
+      }).catch(error => { console.error(error); process.exit(1); });
     });
 
   program

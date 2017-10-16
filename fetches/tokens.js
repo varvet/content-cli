@@ -1,7 +1,7 @@
-const fetch = require('node-fetch');
+const fetch = require('../client.js');
 
 module.exports.getToken = (email, password) => {
-  return fetch('http://localhost:3000/tokens', {
+  return fetch('/tokens', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -11,13 +11,11 @@ module.exports.getToken = (email, password) => {
       password: password
     })
   })
-  .then(response => response.json())
   .then(response => {
     if (response.token) {
       return response.token;
     } else {
       throw 'Incorrect credentials';
     }
-  })
-  .catch(error => { console.error(error); process.exit(1); });
+  });
 }

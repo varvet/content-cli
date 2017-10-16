@@ -16,7 +16,7 @@ module.exports = (program) => {
           );
           console.log(schema);
         });
-      }).catch(error => { console.error(error); process.exit(1) });;
+      }).catch(error => { console.error(error); process.exit(1); });
     });
 
   program
@@ -35,6 +35,6 @@ module.exports = (program) => {
             console.error('Something went wrong'); process.exit(1);
           }
         });
-      }).catch(error => { console.error(error); process.exit(1) });
+      }).catch(error => { console.error(error); process.exit(1); });
     });
 }
