@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 const program = require('commander');
-const spaces = require('./programs/spaces');
-const schema = require('./programs/schema');
+const spaces = require('./commands/spaces');
+const schema = require('./commands/schema');
 
 program
   .version('1.0.0')
