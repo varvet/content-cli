@@ -13,7 +13,7 @@ module.exports = (program) => {
           const data = response.data.map(space => {
             return {
               id: space.id,
-              title: space.attributes.title,
+              name: space.attributes.name,
               token: space.attributes.cdaToken
             }
           });
