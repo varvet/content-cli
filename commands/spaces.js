@@ -1,7 +1,7 @@
 const columnify = require('columnify');
 const inquirer = require('inquirer');
 const { login } = require('../helpers');
-const { getSpaces, createSpace, renameSpace } = require('../fetches/spaces');
+const { getSpaces, createSpace, renameSpace, destroySpace } = require('../fetches/spaces');
 
 module.exports = (program) => {
   program
@@ -55,7 +55,11 @@ module.exports = (program) => {
   program
     .command('spaces:destroy <space>')
     .description('Destroy a space')
-    .action(() => {
-      console.log('Not yet implemented');
+    .action(space => {
+      login().then(token => {
+        destroySpace(token, space).then(response => {
+          console.log('Space destroyed');
+        });
+      }).catch(error => { console.error(error); process.exit(1); });
     });
 }

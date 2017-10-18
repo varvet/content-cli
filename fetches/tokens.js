@@ -11,6 +11,7 @@ module.exports.getToken = (email, password) => {
       password: password
     })
   })
+  .then(response => response.json())
   .then(response => {
     if (response.token) {
       return response.token;

@@ -7,7 +7,8 @@ module.exports.getSchema = (token, space) => {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.api+json'
     }
-  });
+  })
+  .then(response => response.json());
 }
 
 module.exports.updateSchema = (token, space, schema) => {
@@ -27,5 +28,6 @@ module.exports.updateSchema = (token, space, schema) => {
         }
       }
     })
-  });
+  })
+  .then(response => response.json());
 }

@@ -7,7 +7,8 @@ module.exports.getSpaces = (token) => {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/vnd.api+json'
     }
-  });
+  })
+  .then(response => response.json());
 }
 
 module.exports.createSpace = (token, name) => {
@@ -26,7 +27,8 @@ module.exports.createSpace = (token, name) => {
         }
       }
     })
-  });
+  })
+  .then(response => response.json());
 }
 
 module.exports.renameSpace = (token, space, name) => {
@@ -46,5 +48,17 @@ module.exports.renameSpace = (token, space, name) => {
         }
       }
     })
+  })
+  .then(response => response.json());
+}
+
+module.exports.destroySpace = (token, space, name) => {
+  return fetch(`cma/spaces/${space}`, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/vnd.api+json',
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/vnd.api+json'
+    }
   });
 }
