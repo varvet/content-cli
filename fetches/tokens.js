@@ -1,7 +1,7 @@
-const fetch = require('../client.js');
+const fetch = require('../fetch.js');
 
 module.exports.getToken = (email, password) => {
-  return fetch('/tokens', {
+  return fetch('tokens', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
