@@ -1,7 +1,7 @@
 const columnify = require('columnify');
 const inquirer = require('inquirer');
 const { login } = require('../helpers');
-const { getSpaces, createSpace } = require('../fetches/spaces');
+const { getSpaces, createSpace, renameSpace } = require('../fetches/spaces');
 
 module.exports = (program) => {
   program
@@ -38,10 +38,18 @@ module.exports = (program) => {
     });
 
   program
-    .command('spaces:rename <space>')
+    .command('spaces:rename <space> <name>')
     .description('Rename a space')
-    .action(() => {
-      console.log('Not yet implemented');
+    .action((space, name) => {
+      login().then(token => {
+        renameSpace(token, space, name).then(response => {
+          if (response.data) {
+            console.log('Space renamed');
+          } else {
+            console.error('Something went wrong'); process.exit(1);
+          }
+        });
+      }).catch(error => { console.error(error); process.exit(1); });
     });
 
   program
