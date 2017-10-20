@@ -12,7 +12,6 @@ module.exports = (program) => {
         getSpaces(token).then(response => {
           const data = response.data.map(space => {
             return {
-              id: space.id,
               name: space.attributes.name,
               token: space.attributes.cdaToken
             }
