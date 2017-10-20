@@ -39,7 +39,7 @@ module.exports = (program) => {
   program
     .command('spaces:rename <name>')
     .description('Rename a space')
-    .option('-s, --space <space>', 'Which space to rename')
+    .option('-s, --space <space>', 'Which space')
     .action((name, options) => {
       loggedInSpaceScopedCommand(options.space).then(({token, spaceId}) => {
         renameSpace(token, spaceId, name).then(response => {
@@ -55,7 +55,7 @@ module.exports = (program) => {
   program
     .command('spaces:destroy')
     .description('Destroy a space')
-    .option('-s, --space <space>', 'Which space to destroy')
+    .option('-s, --space <space>', 'Which space')
     .action(options => {
       loggedInSpaceScopedCommand(options.space).then(({token, spaceId}) => {
         destroySpace(token, spaceId).then(response => {

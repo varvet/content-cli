@@ -8,7 +8,7 @@ module.exports = (program) => {
   program
     .command('schema')
     .description('Show schema')
-    .option('-s, --space <space>', 'Which space to destroy')
+    .option('-s, --space <space>', 'Which space')
     .action(options => {
       loggedInSpaceScopedCommand(options.space).then(({token, spaceId}) => {
         getSchema(token, spaceId).then(response => {
@@ -23,6 +23,7 @@ module.exports = (program) => {
   program
     .command('schema:update <path>')
     .description('Update schema')
+    .option('-s, --space <space>', 'Which space')
     .action((path, options) => {
       loggedInSpaceScopedCommand(options.space).then(({token, spaceId}) => {
         const schema = JSON.parse(
