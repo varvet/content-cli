@@ -1,6 +1,6 @@
 const columnify = require('columnify');
 const inquirer = require('inquirer');
-const { login } = require('../helpers');
+const { loggedInCommand, loggedInSpaceScopedCommand } = require('../helpers');
 const { getSpaces, createSpace, renameSpace, destroySpace } = require('../fetches/spaces');
 
 module.exports = (program) => {
@@ -8,7 +8,7 @@ module.exports = (program) => {
     .command('spaces')
     .description('List spaces')
     .action(() => {
-      login().then(token => {
+      loggedInCommand().then(token => {
         getSpaces(token).then(response => {
           const data = response.data.map(space => {
             return {
@@ -19,14 +19,14 @@ module.exports = (program) => {
           });
           console.log(columnify(data));
         });
-      }).catch(error => { console.error(error); process.exit(1); });
+      });
     });
 
   program
     .command('spaces:create <name>')
     .description('Create a space')
     .action(name => {
-      login().then(token => {
+      loggedInCommand().then(token => {
         createSpace(token, name).then(response => {
           if (response.data) {
             console.log('Space created');
@@ -34,32 +34,32 @@ module.exports = (program) => {
             console.error('Something went wrong'); process.exit(1);
           }
         });
-      }).catch(error => { console.error(error); process.exit(1); });
+      });
     });
 
   program
     .command('spaces:rename <space> <name>')
     .description('Rename a space')
     .action((space, name) => {
-      login().then(token => {
-        renameSpace(token, space, name).then(response => {
+      loggedInSpaceScopedCommand(space).then(({token, spaceId}) => {
+        renameSpace(token, spaceId, name).then(response => {
           if (response.data) {
             console.log('Space renamed');
           } else {
             console.error('Something went wrong'); process.exit(1);
           }
         });
-      }).catch(error => { console.error(error); process.exit(1); });
+      });
     });
 
   program
     .command('spaces:destroy <space>')
     .description('Destroy a space')
     .action(space => {
-      login().then(token => {
-        destroySpace(token, space).then(response => {
+      loggedInSpaceScopedCommand(space).then(({token, spaceId}) => {
+        destroySpace(token, spaceId).then(response => {
           console.log('Space destroyed');
         });
-      }).catch(error => { console.error(error); process.exit(1); });
+      });
     });
 }
