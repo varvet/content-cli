@@ -38,10 +38,11 @@ module.exports = (program) => {
     });
 
   program
-    .command('spaces:rename <space> <name>')
+    .command('spaces:rename <name>')
     .description('Rename a space')
-    .action((space, name) => {
-      loggedInSpaceScopedCommand(space).then(({token, spaceId}) => {
+    .option('-s, --space <space>', 'Which space to rename')
+    .action((name, options) => {
+      loggedInSpaceScopedCommand(options.space).then(({token, spaceId}) => {
         renameSpace(token, spaceId, name).then(response => {
           if (response.data) {
             console.log('Space renamed');
@@ -53,10 +54,11 @@ module.exports = (program) => {
     });
 
   program
-    .command('spaces:destroy <space>')
+    .command('spaces:destroy')
     .description('Destroy a space')
-    .action(space => {
-      loggedInSpaceScopedCommand(space).then(({token, spaceId}) => {
+    .option('-s, --space <space>', 'Which space to destroy')
+    .action(options => {
+      loggedInSpaceScopedCommand(options.space).then(({token, spaceId}) => {
         destroySpace(token, spaceId).then(response => {
           console.log('Space destroyed');
         });

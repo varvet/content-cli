@@ -14,9 +14,35 @@ const loggedInCommand = () => {
 
 module.exports.loggedInCommand = loggedInCommand;
 
-const loggedInSpaceScopedCommand = (spaceId) => {
+const loggedInSpaceScopedCommand = (spaceName) => {
   return loggedInCommand().then(token => {
-    return Promise.resolve({ token: token, spaceId: spaceId });
+    return getSpaces(token).then(response => {
+      const spaces = response.data.map(space => {
+        return {
+          id: space.id,
+          name: space.attributes.name,
+          token: space.attributes.cdaToken
+        }
+      });
+
+      if (spaceName) {
+        const space = spaces.find(space => {
+          return space.name === spaceName;
+        });
+        return Promise.resolve({ token: token, spaceId: space.id });
+      } else {
+        return inquirer.prompt([
+          { type: 'list', name: 'space', message: 'Select space', choices: spaces.map(space => {
+            return {
+              name: space.name,
+              value: space.id
+            }
+          }) }
+        ]).then(answers => {
+          return Promise.resolve({ token: token, spaceId: answers.space });
+        })
+      }
+    });
   })
   .catch(error => { console.error(error); process.exit(1); });
 }

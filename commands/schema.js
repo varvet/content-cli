@@ -6,10 +6,11 @@ const { getSchema, updateSchema } = require('../fetches/schema');
 
 module.exports = (program) => {
   program
-    .command('schema <space>')
+    .command('schema')
     .description('Show schema')
-    .action(space => {
-      loggedInSpaceScopedCommand(space).then(({token, spaceId}) => {
+    .option('-s, --space <space>', 'Which space to destroy')
+    .action(options => {
+      loggedInSpaceScopedCommand(options.space).then(({token, spaceId}) => {
         getSchema(token, spaceId).then(response => {
           const schema = JSON.stringify(
             response.data.attributes.schema, null, 2
@@ -20,10 +21,10 @@ module.exports = (program) => {
     });
 
   program
-    .command('schema:update <space> <path>')
+    .command('schema:update <path>')
     .description('Update schema')
-    .action((space, path) => {
-      loggedInSpaceScopedCommand(space).then(({token, spaceId}) => {
+    .action((path, options) => {
+      loggedInSpaceScopedCommand(options.space).then(({token, spaceId}) => {
         const schema = JSON.parse(
           fs.readFileSync(path)
         );
